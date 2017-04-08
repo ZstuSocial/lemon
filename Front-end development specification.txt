@@ -1,0 +1,261 @@
+前端静态资源文件
+1、网页title左边显示的小logo，icon小图标
+2、线上logo调用
+3、二维码的调用 注意：请根据网页大小进行高宽设置
+4、地图引用 注意：请根据网页大小进行高宽设置
+
+html编码规范
+编码
+页面统一utf-8编码，如果中文不能正常显示，请用editplus打开，另存，编码选utf-8。
+友情提示:模板代码当中很多莫名其妙的换行都可能跟编码有关！
+
+结构
+
+(1)  页面html文档都应采用结构化的书写方式，缩进规范，逻辑清晰易于阅读
+
+<div id="mainMenu">
+　　<ul>
+　　	<li><a href="#" >首页</a></li>
+　　	<li><a href="#" >介绍</a></li>
+　　	<li><a href="#" >服务</a></li>
+　　</ul>
+</div>
+
+(2)  结构与样式分离
+
+在页面里只写入文档的结构，而将样式写于css文件中，通过外部调用CSS样式表来实现结构与样式的分离。
+
+注释规范
+
+(1)  段落注释
+
+<!--菜单开始-->
+<div id="mainMenu">
+　　<ul>
+　　	<li><a href="#" >首页</a></li>
+　　	<li><a href="#" >介绍</a></li>
+　　	<li><a href="#" >服务</a></li>
+　　</ul>
+</div>
+<!--菜单结束-->
+
+(2)  数据注释
+
+在写静态页面的时候，需要把通过接口或者标签获取的数据样式写出来，先实现写死的静态效果，再去对接数据，此时需要在动态数据出注释此数据是怎么作用，便于对接。
+
+<span>
+　　<strong>小铭</strong><!--用户名-->
+　　	欢迎来到铭飞<br/>
+　　	<label>189*****321</label><!--用户手机号-->
+</span>
+表单规范
+
+(1)   表单中密码框必须用“type=password”。
+
+(2)  按钮用<button>而不用<input />
+
+
+CSS编码规范
+
+样式重置
+
+重设浏览器的样式。在各种浏览器中，都会对CSS的选择器默认一些数值，譬如当h1没有被设置数值时，显示一定大小。但并不是所有的浏览器都使用一样的数值，让网页的样式在各浏览器中表现一致。将以下代码放到你页面中用到的一个公共css文件中，或者独立存为一个css。
+
+/*------------------重定义浏览器默认样式------------*/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre, dl, dt, dd, ul, ol, li, th, td, div, span, img, fieldset, lengend, button, input, select, textarea{margin: 0;padding: 0;}
+ul,ul li,dl,dl dt,dl dd,input,ol, ol li{ list-style:none;}
+img{border:none;}
+html,body{*position:static}
+
+结构规范
+
+(1)   css文档都应采用结构化的书写方式，层次清晰
+
+#mainMenu {
+　　width:100%;
+　　height:30px;
+　　background:url(images/mainMenu_bg.jpg) repeat-x;
+}
+#mainMenu ul li {
+　　float:left;
+　　line-height:30px;
+　　margin-right:1px;
+　　cursor:pointer;
+}
+
+(2)   不同类有相同属性及属性值的缩写：对于两个不同的类，但是其中有部分相同甚至是全部相同的属性及属性值时，应对其加以合并缩写，特别是当有多个不同的类而有相同的属性及属性值时，合并缩写可以减少代码量并易于控制。
+
+不规范：
+#mainMenu {
+　　background:url(../images/bg.gif);
+　　border:1px solid #333;
+　　width:100%;
+　　height:30px;
+　　overflow:hidden;
+}
+#subMenu {
+　　background:url(../images/bg.gif);
+　　border:1px solid #333;
+　　width:100%;
+　　height:20px;
+　　overflow:hidden;
+}
+
+注释规范
+
+(1)   行间注释：直接写于属性值后面
+
+.search{
+　　border:1px solid #fff;/*定义搜索输入框边框*/
+　　background:url(../images/icon.gif) no-report #333;/*定义搜索框的背景*/
+}
+(2)   段落注释：整段注释，分别在开始及结束地方加入注释
+
+/*=====搜索条=====*/
+.search {
+　　border:1px solid #fff;
+　　background:url(../images/icon.gif) no-repeat #333;
+}
+/*=====搜索条结束=====*/
+其他规范
+
+(1)    目标有点击事件，没有a标签时，需要将鼠标手势转换为“手形”，需加属性“cursor:pointer; cursor:hand”， cursor:hand 与 cursor:pointer 的效果是一样，都像手形光标。但用FireFox浏览时才注意到使用cursor:hand在FireFox里并被支持。cursor:hand ：IE完全支持。但是在firefox是不支持的，没有效果。cursor:pointer ：是CSS2.0的标准。所以firefox是支持的，但是IE5.0既之前版本不支持。IE6开始支持。
+
+(2)    文字内容需要超出隐藏并在尾部显示“…”时，可用如下样式
+
+.text-hide{
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+(3)    当标题使用文字超出隐藏后，需加title=” 全部标题”属性，鼠标上移提示全部文字内容。
+
+(4)    字符缩进用属性“text-indent: 10px;”
+
+(5)    当加载图片失败时，替换成默认图片。
+
+第一种img元素自带的onerror属性，加载失败时，触发error事件例如
+
+<img src="原地址" onerror='this.src="默认图片地址"' />
+第二种是jquery.error函数，jquery提供对应的事件处理函数如下：
+
+$('img').error(function(){
+    $(this).attr('src',"默认图片地址");
+})
+第三种jquery.one函数，使用上面两种方法，假如默认图片也加载失败，则变成死循环. 此时可使用one()绑定事件
+
+$("img").one("error", function(e){
+     $(this).attr("src", "默认图片地址");
+});
+
+
+常用命名
+
+模板命名
+
+引导页：default.htm
+
+首页：index.htm
+
+关于页：about.htm
+
+产品列表：product-list.htm 
+
+产品详情：product-show.htm
+
+新闻列表：news-list.htm
+
+新闻详情：news-show.htm
+
+图片列表：pic-list.htm
+
+图片详情：pic-show.htm
+
+服务页：service.htm
+
+联系页：contact.htm
+
+加入我们：join-us.htm
+
+其它：
+
+***-list.htm
+
+***-show.htm
+
+商城模板
+
+商品列表：goods-list.htm
+
+商品内容：goods-show.htm
+
+其它：
+
+goods-***-list.htm
+
+goods-***-show.htm
+
+如：goods-clothes-list.htm
+
+会员中心
+
+登录：login.htm
+
+注册：register.htm
+
+
+需要用户登录后才能打开的页面，统一放在站点目录下的people文件夹中，文件命名如下
+
+会员中心 center.htm
+
+购物车 goods-cart.htm
+
+订单 order.htm
+
+修改密码 change-password.htm
+
+
+常用CSS命名
+
+1.常用类的命名应尽量以常见英文单词为准，通俗易懂，并在适当的地方加以注释
+
+2.需要组合命名时两个单词之间用“-”隔开。如：“搜索按钮”命名为“search-btn”
+
+头  部：header
+
+内　容：content
+
+容　器：container
+
+底  部：footer
+
+ 版　权：copyright　
+
+导　航：menu
+
+主导航：mainMenu
+
+子导航：subMenu
+
+标　志：logo
+
+大背景图/幻灯：banner
+
+标　题：title
+
+侧边栏：sidebar
+
+图　标：icon
+
+注　释：note
+
+搜　索：search
+
+按　钮：button
+
+登　录：login
+
+链　接：link
+
+信息框：message
